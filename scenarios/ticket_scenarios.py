@@ -2,16 +2,17 @@ import json
 import os
 from copy import deepcopy
 import random
+from pathlib import Path
 
 import requests
 from dotenv import load_dotenv
 
 load_dotenv()
 
-PAYLOAD_FILE = "payload.json"
+PAYLOAD_FILE = Path(__file__).resolve().parents[1] / "data" / "payload.json"
 BASE_PAYLOAD = None
 
-with open(PAYLOAD_FILE, "r") as f:
+with PAYLOAD_FILE.open(encoding="utf-8") as f:
     loaded = json.load(f)
     if not loaded:
         raise RuntimeError("payload.json must contain at least one payload")
